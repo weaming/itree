@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"os"
 
 	ft "github.com/weaming/disk-analysis/filetree"
 )
@@ -20,11 +19,10 @@ func init() {
 	flag.IntVar(&level, "L", level, "level in tree mode")
 	flag.Parse()
 
-	if flag.NArg() == 0 {
-		println("missing positional argument PATH")
-		os.Exit(1)
+	p := flag.Arg(0)
+	if p != "" {
+		path = p
 	}
-	path = flag.Arg(0)
 }
 
 func main() {

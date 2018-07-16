@@ -93,8 +93,12 @@ func NewFileNode(path string, root string, parent *FileNode) *FileNode {
 	}
 
 	rv.TotalSize = rv.totalSize()
-	sort.Stable(sort.Reverse(rv))
+	rv.Sort()
 	return rv
+}
+
+func (p *FileNode) Sort() {
+	sort.Stable(sort.Reverse(p))
 }
 
 func (p *FileNode) totalSize() int64 {

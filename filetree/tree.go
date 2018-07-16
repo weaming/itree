@@ -32,7 +32,7 @@ type FileNode struct {
 	Children []*FileNode
 }
 
-func NewFileNode(path string, root string, parent *FileNode) *FileNode {
+func NewFileNode(path string, root string, parent *FileNode, sortBySize bool) *FileNode {
 	// parse arguments: absolute pathes
 	path, e := filepath.Abs(path)
 	fatalErr(e)
@@ -78,7 +78,7 @@ func NewFileNode(path string, root string, parent *FileNode) *FileNode {
 			absPath, err := filepath.Abs(filepath.Join(path, fi.Name()))
 			fatalErr(err)
 
-			childFile := NewFileNode(absPath, root, rv)
+			childFile := NewFileNode(absPath, root, rv, sortBySize)
 			if childFile == nil {
 				continue
 			}
@@ -102,7 +102,9 @@ func NewFileNode(path string, root string, parent *FileNode) *FileNode {
 	}
 
 	rv.TotalSize = rv.totalSize()
-	rv.Sort()
+	if sortBySize {
+		rv.Sort()
+	}
 	return rv
 }
 

@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	root := ft.NewFileNode(path, path, nil)
+	root := ft.NewFileNode(path, path, nil, true)
 	if tree {
 		ft.PrintFileNodeTree(root, []string{}, 1, level, human)
 	} else {

@@ -40,6 +40,9 @@ func NewFileNode(path string, root string, parent *FileNode) *FileNode {
 	fatalErr(e)
 
 	fi, err := os.Stat(path)
+	if !IsFileOrDir(fi) {
+		return nil
+	}
 	fatalErr(err)
 
 	// get abs/rel path
@@ -76,11 +79,17 @@ func NewFileNode(path string, root string, parent *FileNode) *FileNode {
 			fatalErr(err)
 
 			childFile := NewFileNode(absPath, root, rv)
-			rv.Children = append(rv.Children, childFile)
+			if childFile == nil {
+				continue
+			}
 
 			if fi.IsDir() {
+				// children
+				rv.Children = append(rv.Children, childFile)
 				rv.Dirs = append(rv.Dirs, childFile)
 			} else {
+				// children
+				rv.Children = append(rv.Children, childFile)
 				rv.Files = append(rv.Files, childFile)
 
 				switch strings.ToLower(childFile.Extension) {
@@ -136,4 +145,11 @@ func fatalErr(e error) {
 	if e != nil {
 		log.Fatal(e)
 	}
+}
+
+func IsFileOrDir(fi os.FileInfo) bool {
+	if fi == nil {
+		return false
+	}
+	return fi.Mode().IsDir() || fi.Mode().IsRegular()
 }

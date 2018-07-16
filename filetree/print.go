@@ -13,7 +13,7 @@ const (
 	END_PREFIX      = "└"
 )
 
-func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int) {
+func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human bool) {
 	for i, x := range node.Children {
 		if i == 0 {
 			// first
@@ -25,15 +25,23 @@ func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int) {
 			prefix = append(prefix[:len(prefix)-1], END_PREFIX)
 		}
 
-		fmt.Printf("%v%v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, x.TotalSize)
+		fmt.Printf("%v%v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human))
 
 		if x.Type == TYPE_DIR && depth < level {
 			prefix = append(prefix[:len(prefix)-1], VERTICAL_LINE)
 			prefix = append(prefix, SPACE)
-			PrintFileNodeTree(x, prefix, depth+1, level)
+			PrintFileNodeTree(x, prefix, depth+1, level, human)
 			prefix = append(prefix[:len(prefix)-2], T_PREFIX)
 		}
 	}
+}
+
+func getSizeText(s int64, human bool) string {
+	sizeTtext := fmt.Sprintf("%v", s)
+	if human {
+		sizeTtext = HumanSize(s, 1000)
+	}
+	return sizeTtext
 }
 
 func flat(node *FileNode) []*FileNode {
@@ -51,13 +59,34 @@ func flat(node *FileNode) []*FileNode {
 	return list
 }
 
-func PrintFileNodeSimple(node *FileNode) {
+func PrintFileNodeSimple(node *FileNode, human bool) {
 	originChildren := node.Children
 	node.Children = flat(node)
 	node.Sort()
 	defer func() { node.Children = originChildren }()
 
 	for _, x := range node.Children {
-		fmt.Printf("%v %v %v\n", string(x.Type[0]), x.RelPath, x.TotalSize)
+		fmt.Printf("%v %v %v\n", string(x.Type[0]), x.RelPath, getSizeText(node.TotalSize, human))
 	}
+}
+
+func HumanSize(s, factor int64) string {
+	unit := "B"
+	if s > factor {
+		s /= factor
+		unit = "KB"
+	}
+	if s > factor {
+		s /= factor
+		unit = "MB"
+	}
+	if s > factor {
+		s /= factor
+		unit = "GB"
+	}
+	if s > factor {
+		s /= factor
+		unit = "TB"
+	}
+	return fmt.Sprintf("%v%v", s, unit)
 }

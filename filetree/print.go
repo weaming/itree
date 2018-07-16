@@ -79,7 +79,7 @@ func PrintFileNodeSimple(node *FileNode, human bool) {
 	defer func() { node.Children = originChildren }()
 
 	for _, x := range node.Children {
-		fmt.Printf("%v %v %v\n", string(x.Type[0]), x.RelPath, getSizeText(node.TotalSize, human))
+		fmt.Printf("%v %v %v\n", string(x.Type[0]), x.RelPath, getSizeText(x.TotalSize, human))
 	}
 }
 

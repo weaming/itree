@@ -7,5 +7,5 @@ import (
 func main() {
 	path := "."
 	root := ft.NewFileNode(path, path, nil)
-	ft.PrintFileNode(root, []string{})
+	ft.PrintFileNode(root, []string{}, 1, 2)
 }

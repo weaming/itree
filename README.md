@@ -4,6 +4,16 @@ Find the biggest file / directory on your disk
 
 Same as `tree --sort=size -s/-h`, but more pretty 😉
 
+## Usage
+
+```
+Usage of disk-analysis:
+  -L int
+    	level in tree mode (default 1024)
+  -h	human readable size (default true)
+  -t	tree mode (default true)
+```
+
 ```
 $ disk-analysis
 ├── .git 44KB

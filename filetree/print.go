@@ -15,13 +15,13 @@ const (
 
 func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human bool) {
 	for i, x := range node.Children {
+		// first
 		if i == 0 {
-			// first
 			prefix = append(prefix, T_PREFIX)
 		}
 
+		// last
 		if i+1 == len(node.Children) {
-			// last
 			prefix = append(prefix[:len(prefix)-1], END_PREFIX)
 		}
 
@@ -32,7 +32,13 @@ func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human 
 				continue
 			}
 
-			prefix = append(prefix[:len(prefix)-1], VERTICAL_LINE)
+			// last
+			if i+1 == len(node.Children) {
+				prefix = append(prefix[:len(prefix)-1], " ")
+			} else {
+				prefix = append(prefix[:len(prefix)-1], VERTICAL_LINE)
+			}
+
 			prefix = append(prefix, SPACE)
 			PrintFileNodeTree(x, prefix, depth+1, level, human)
 			prefix = append(prefix[:len(prefix)-2], T_PREFIX)

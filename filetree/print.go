@@ -28,6 +28,10 @@ func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human 
 		fmt.Printf("%v%v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human))
 
 		if x.Type == TYPE_DIR && depth < level {
+			if x.Name[0] == '.' {
+				continue
+			}
+
 			prefix = append(prefix[:len(prefix)-1], VERTICAL_LINE)
 			prefix = append(prefix, SPACE)
 			PrintFileNodeTree(x, prefix, depth+1, level, human)
@@ -46,6 +50,9 @@ func getSizeText(s int64, human bool) string {
 
 func flat(node *FileNode) []*FileNode {
 	list := []*FileNode{node}
+	if node.Name[0] == '.' {
+		return list
+	}
 
 	for _, x := range node.Children {
 		if x.Type == TYPE_DIR {

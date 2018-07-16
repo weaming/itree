@@ -65,6 +65,8 @@ func NewFileNode(path string, root string, parent *FileNode) *FileNode {
 
 	if fi.IsDir() {
 		rv.Type = TYPE_DIR
+		// println(rv.Size) // dir size is not 0 !!
+		rv.Size = 0
 
 		files, err := ioutil.ReadDir(path)
 		fatalErr(err)

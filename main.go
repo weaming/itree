@@ -8,15 +8,15 @@ import (
 )
 
 var (
-	tree  = false
-	human = false
+	tree  = true
+	human = true
 	level = 1024
 	path  = "."
 )
 
 func init() {
 	flag.BoolVar(&tree, "t", tree, "tree mode")
-	flag.BoolVar(&human, "human", human, "human readable size")
+	flag.BoolVar(&human, "h", human, "human readable size")
 	flag.IntVar(&level, "L", level, "level in tree mode")
 	flag.Parse()
 

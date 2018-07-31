@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	ft "github.com/weaming/disk-analysis/filetree"
+	ft "github.com/weaming/itree/filetree"
 )
 
 var (

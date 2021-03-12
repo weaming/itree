@@ -50,7 +50,7 @@ func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human 
 func getSizeText(s int64, human bool) string {
 	sizeTtext := fmt.Sprintf("%v", s)
 	if human {
-		sizeTtext = HumanSize(s, 1000)
+		sizeTtext = HumanSize(s, 1024)
 	}
 	return sizeTtext
 }

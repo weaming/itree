@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 
 	ft "github.com/weaming/itree/filetree"
 )
@@ -40,6 +41,7 @@ func init() {
 func main() {
 	for _, x := range paths {
 		root := ft.NewFileNode(x, x, nil, true)
+		fmt.Println(root.AbsPath)
 		if tree {
 			ft.PrintFileNodeTree(root, []string{}, 1, level, human, md5, sha256)
 		} else {

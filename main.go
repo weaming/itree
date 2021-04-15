@@ -47,5 +47,6 @@ func main() {
 		} else {
 			ft.PrintFileNodeSimple(root, human)
 		}
+		fmt.Println()
 	}
 }

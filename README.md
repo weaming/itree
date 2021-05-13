@@ -11,10 +11,10 @@ Usage of itree:
   -L int
     	level in tree mode (default 1024)
   -h	human readable size (default true)
+  -imo
+    	with ImoHash https://github.com/kalafut/imohash
   -md5
     	with MD5
-  -sha256
-    	with SHA256
   -t	tree mode (default true)
 ```
 

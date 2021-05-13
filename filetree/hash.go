@@ -4,6 +4,9 @@ import (
 	"crypto/md5"
 	"crypto/sha256"
 	"fmt"
+	"log"
+
+	"github.com/kalafut/imohash"
 )
 
 func MD5(input []byte) string {
@@ -15,4 +18,12 @@ func MD5(input []byte) string {
 
 func Sha256(content []byte) string {
 	return fmt.Sprintf("%x", sha256.Sum256(content))
+}
+
+func ImoHash(file string) string {
+	hash, err := imohash.SumFile(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return fmt.Sprintf("%016x", hash)
 }

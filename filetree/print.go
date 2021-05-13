@@ -15,7 +15,7 @@ const (
 	END_PREFIX      = "└"
 )
 
-func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human, md5, sha256 bool) {
+func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human, md5, imo bool) {
 	for i, x := range node.Children {
 		// first
 		if i == 0 {
@@ -30,18 +30,18 @@ func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human,
 		if x.Type == TYPE_FILE {
 			bin := []byte{}
 			var e error
-			if md5 || sha256 {
+			if md5 || imo {
 				bin, e = ioutil.ReadFile(x.AbsPath)
 				if e != nil {
 					panic(e)
 				}
 			}
-			if md5 && sha256 {
-				fmt.Printf("%v%v %v %v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human), MD5(bin), Sha256(bin))
+			if md5 && imo {
+				fmt.Printf("%v%v %v %v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human), MD5(bin), ImoHash(x.AbsPath))
 			} else if md5 {
 				fmt.Printf("%v%v %v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human), MD5(bin))
-			} else if sha256 {
-				fmt.Printf("%v%v %v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human), Sha256(bin))
+			} else if imo {
+				fmt.Printf("%v%v %v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human), ImoHash(x.AbsPath))
 			} else {
 				fmt.Printf("%v%v %v %v\n", strings.Join(prefix, ""), strings.Repeat(HORIZONTAL_LINE, 2), x.Name, getSizeText(x.TotalSize, human))
 			}
@@ -61,7 +61,7 @@ func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human,
 			}
 
 			prefix = append(prefix, SPACE_THREE)
-			PrintFileNodeTree(x, prefix, depth+1, level, human, md5, sha256)
+			PrintFileNodeTree(x, prefix, depth+1, level, human, md5, imo)
 			prefix = append(prefix[:len(prefix)-2], T_PREFIX)
 		}
 	}

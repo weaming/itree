@@ -1,5 +1,9 @@
 github.com/kalafut/imohash v1.0.2 h1:j/cUPa15YvXv7abJlM+kdJIycbBMpmO7WqhPl4YB76I=
 github.com/kalafut/imohash v1.0.2/go.mod h1:PjHBF0vpo1q7zMqiTn0qwSTQU2wDn5QIe8S8sFQuZS8=
+github.com/klauspost/cpuid/v2 v2.0.4 h1:g0I61F2K2DjRHz1cnxlkNSBIaePVoJIjjnHui8QHbiw=
+github.com/klauspost/cpuid/v2 v2.0.4/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
+github.com/minio/sha256-simd v1.0.0 h1:v1ta+49hkWZyvaKwrQB8elexRqm6Y0aMLjCNsrYxo6g=
+github.com/minio/sha256-simd v1.0.0/go.mod h1:OuYzVNI5vcoYIAmbIvHPl3N3jUzVedXbKy5RFepssQM=
 github.com/twmb/murmur3 v1.1.5 h1:i9OLS9fkuLzBXjt6dptlAEyk58fJsSTXbRg3SgVyqgk=
 github.com/twmb/murmur3 v1.1.5/go.mod h1:Qq/R7NUyOfr65zD+6Q5IHKsJLwP7exErjN6lyyq3OSQ=
 gopkg.in/tylerb/is.v1 v1.1.2 h1:AB/MANFml2ySf+adwcinvajyHvsYltAOD+rb/8njfSU=

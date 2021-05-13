@@ -30,7 +30,7 @@ func PrintFileNodeTree(node *FileNode, prefix []string, depth, level int, human,
 		if x.Type == TYPE_FILE {
 			bin := []byte{}
 			var e error
-			if md5 || imo {
+			if md5 {
 				bin, e = ioutil.ReadFile(x.AbsPath)
 				if e != nil {
 					panic(e)
